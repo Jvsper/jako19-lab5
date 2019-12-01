@@ -66,7 +66,7 @@ app.get("/api/updateFavorites", function(req, res){
 	res.send("it works!");
 })
 
-// Listen
+// Listening
 app.listen(3000, function(){
 	console.log("Connection successful");
 })
