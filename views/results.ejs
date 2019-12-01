@@ -1,0 +1,17 @@
+<%- include ('partials/header.ejs') %>
+
+	<form action="/search" method="GET">
+		<input type="text" placeholder="Type Keyword" name="keyword"/> <br>
+		<button>
+		 	Search
+		</button>
+	</form>
+
+<% imageURLs.forEach(function(imageURL, i){ %>
+	<%- (i%3==0)?'<br>':''%>
+
+	<img src="<%=imageURL%>" width="200" height="200" alt="imageURL">
+	<img class="favoriteIcon" src="img/favorite.png" width="20" alt="favorite off">
+<% }) %>
+
+<%- include ('partials/footer.ejs') %>
