@@ -39,12 +39,7 @@ app.get("/search", async function(req, res){
 	
 
 app.get("/api/updateFavorites", function(req, res){
-	var conn = mysql.createConnection({
-		host: "localhost",
-		user: "root",
-		password: "Rkdwldns1994",
-		database: "img_gallery"
-	})
+	var conn = tools.createConnection();
 
 	var sql = [];
 	var sqlParams
@@ -59,6 +54,7 @@ app.get("/api/updateFavorites", function(req, res){
 	conn.connect(function(err){
 		if (err) throw err;
 
+		// conn.query sends SQL query
 		conn.query(sql, sqlParams, function(err, result){
 			if (err) throw err;
 		}) // query
@@ -66,13 +62,50 @@ app.get("/api/updateFavorites", function(req, res){
 	res.send("it works!");
 })
 
+//Display favorites view with data from db
+app.get("/displayKeywords", function(req, res){
+
+	var conn = tools.createConnection();
+	var sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
+
+	conn.connect(function(err){
+		if (err) throw err;
+
+		conn.query(sql, function(err, result){
+			if(err) throw err;
+			console.log(result);
+			res.render("favorites", {"rows": result});
+		})
+	})// connect
+
+})
+
+app.get("/api/displayFavorites", function(req, res){
+	var conn = tools.createConnection();
+	var sql = "SELECT imageURL FROM favorites WHERE keyword = ? "
+	var sqlParam =  req.query.keyword;
+	console.log("SQL PARAM IS : " + sqlParam);
+
+	conn.connect(function(err){
+		if (err) throw err;
+
+		conn.query(sql, sqlParam, function(err, result){
+			// Query for the result and send the result back to ajax
+			if(err) throw err;
+			console.log(result);
+			res.send(result);	// sending the result to ajax
+		})
+	})// connect
+})
 // Listening
 /*
 app.listen(3000, function(){
 	console.log("Connection successful");
 })
 */
+
 // For Heroku port
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log("Express server is now running");
 })
+

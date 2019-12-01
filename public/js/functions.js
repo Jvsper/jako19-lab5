@@ -3,8 +3,6 @@
 
 $(document).ready(function(){
 
-
-
 	$(".favoriteIcon").on('click', function(){
 		var imageURL = $(this).prev().attr("src");
 		var keyword = $("input").attr("placeholder");
@@ -22,7 +20,29 @@ $(document).ready(function(){
 		}
 	}) 
 
+	$(".keywordLink").on('click', function(){
+		// Calls 
+		
+		$.ajax({	// requesting to URL with the data {keyword}
+			method: "get",
+			url: "/api/displayFavorites",
+			data: {
+				"keyword" : $(this).text().trim() // Send this request to the url
+			},
+			success: function(rows, status){
+				// success receives the query done by /displayfavorites
+				// res.send(result) ends here as rows
+				rows.forEach(function(row){
+					$("#favorites").html("");
+					$("#favorites").append("<img src='"+row.imageURL+"' width='200' height='200' alt='image'>");
+				})
+			}
+		});
+	})
+
 	function updateFavorite(action, imageURL, keyword){
+		// ajax sends a request with data object to the designated url
+		// ajax is used to call server functions, or api url
 		$.ajax({
 			method: "get",
 			url: "/api/updateFavorites",
@@ -33,4 +53,6 @@ $(document).ready(function(){
 		}); // ajax
 	}
 
-});
+
+
+}); // document ready

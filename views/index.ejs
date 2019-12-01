@@ -1,16 +1,5 @@
 <%- include ('partials/header.ejs') %>
 
-	<style>
-		body {
-			background-image : url("<%= imageURLs[0] %>");
-		}
-
-		h1 {
-			color : white;
-		}
-		
-	</style>
-</head>
 <body>
 	<main>
 		<h1>
@@ -18,11 +7,12 @@
 		</h1>
 
 		<form action="/search" method="GET">
-			<input type="text" placeholder="Type Keyword" name="keyword"/> <br>
+			<input type="text" size="12" placeholder="Type Keyword" name="keyword"/> <br><br>
 			<button>
 				Search
 			</button>
 		</form>
+		<br>
 
 	</main>
 

@@ -1,4 +1,5 @@
 const request = require('request');
+const mysql = require('mysql');
 module.exports ={
 
 /**  Using Callback
@@ -70,6 +71,17 @@ getRandomImages: function (keyword, imageCount){
 		}); // Request
   	}) // Promise
   	
+},
+
+createConnection: function(){
+	// Creates Database
+		var conn = mysql.createConnection({
+		host: "localhost",
+		user: "root",
+		password: "Rkdwldns1994",
+		database: "img_gallery"
+	})
+		return conn;
 }
 
 } // Module exports
