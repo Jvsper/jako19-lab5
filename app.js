@@ -100,14 +100,15 @@ app.get("/api/displayFavorites", function(req, res){
 	})// connect
 })
 // Listening
+// For Heroku port
+app.listen(process.env.PORT, process.env.IP, function(){
+	console.log("Express server is now running");
+})
 /*
 app.listen(3000, function(){
 	console.log("Connection successful");
 })
 */
 
-// For Heroku port
-app.listen(process.env.PORT, process.env.IP, function(){
-	console.log("Express server is now running");
-})
+
 
