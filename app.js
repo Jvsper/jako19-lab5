@@ -63,7 +63,9 @@ app.get("/api/updateFavorites", function(req, res){
 })
 
 //Display favorites view with data from db
-app.get("/displayKeywords", function(req, res){
+app.get("/displayKeywords", async function(req, res){
+	var imageURLs = await tools.getRandomImages("", 1);
+	console.log(imageURLs);
 
 	var conn = tools.createConnection();
 	var sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
@@ -74,7 +76,7 @@ app.get("/displayKeywords", function(req, res){
 		conn.query(sql, function(err, result){
 			if(err) throw err;
 			console.log(result);
-			res.render("favorites", {"rows": result});
+			res.render("favorites", {"rows": result, "imageURLs": imageURLs});
 		})
 	})// connect
 

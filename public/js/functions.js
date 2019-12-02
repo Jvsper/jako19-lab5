@@ -32,9 +32,9 @@ $(document).ready(function(){
 			success: function(rows, status){
 				// success receives the query done by /displayfavorites
 				// res.send(result) ends here as rows
+				$("#favorites").html("");
 				rows.forEach(function(row){
-					$("#favorites").html("");
-					$("#favorites").append("<img src='"+row.imageURL+"' width='200' height='200' alt='image'>");
+					$("#favorites").append("<img class='image' src='"+row.imageURL+"' width='200' height='200' alt='image'>");
 				})
 			}
 		});
